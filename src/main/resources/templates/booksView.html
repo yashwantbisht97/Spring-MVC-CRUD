@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Books List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Books List</h2>
+
+    <!-- Success or error messages from controller -->
+    <div th:if="${succMsg}" class="alert alert-success" th:text="${succMsg}"></div>
+    <div th:if="${errMsg}" class="alert alert-danger" th:text="${errMsg}"></div>
+
+    <!-- Check if there are books available -->
+    <div th:if="${#lists.isEmpty(books)}">
+        <p>No books found.</p>
+    </div>
+
+    <!-- Display list of books in a table -->
+    <table class="table table-striped" th:if="${!#lists.isEmpty(books)}">
+        <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through books list -->
+        <tr th:each="book : ${books}">
+            <td th:text="${book.bookId}"></td>
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Link to add a new book (back to the index page) -->
+    <a href="/index" class="btn btn-primary">Add New Book</a>
+</div>
+</body>
+</html>
